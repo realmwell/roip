@@ -1,5 +1,7 @@
 # ROIP — RAG Operations Intelligence Platform
 
+**Live:** [https://roip-47q5.vercel.app](https://roip-47q5.vercel.app)
+
 A working demo of enterprise RAG operations tooling, built as a supplement to the OpenAI AI Success Engineer take-home assignment.
 
 Instead of submitting only a document, ROIP ships a **deployed application** that demonstrates the exact skills the role requires: diagnosing production RAG issues, recommending OpenAI API optimizations, advising on tradeoffs with concrete numbers, and planning phased enterprise rollouts.
