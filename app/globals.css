@@ -1,36 +1,108 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   CSS Custom Properties
+   --------------------------------------------------------------------------- */
+
 :root {
-  --navy: #1B2A4A;
-  --blue: #2E75B6;
-  --teal: #0EA5E9;
-  --green: #10B981;
-  --amber: #F59E0B;
-  --red: #EF4444;
+  --navy: #1b2a4a;
+  --navy-light: #243656;
+  --navy-dark: #121d33;
+  --blue: #2e75b6;
+  --teal: #0ea5e9;
+  --green: #10b981;
+  --amber: #f59e0b;
+  --red: #ef4444;
+
   --background: #ffffff;
   --foreground: #171717;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0b1120;
+  --foreground: #e5e7eb;
+  --card-bg: #152038;
+  --card-border: #1e3055;
+  --muted: #1a2744;
+  --muted-foreground: #9ca3af;
+}
+
+/* ---------------------------------------------------------------------------
+   Tailwind v4 Theme Tokens
+   --------------------------------------------------------------------------- */
+
+@theme inline {
+  --color-navy: #1b2a4a;
+  --color-navy-light: #243656;
+  --color-navy-dark: #121d33;
+  --color-blue: #2e75b6;
+  --color-teal: #0ea5e9;
+  --color-green: #10b981;
+  --color-amber: #f59e0b;
+  --color-red: #ef4444;
+
+  --color-surface: var(--card-bg);
+  --color-surface-border: var(--card-border);
+  --color-bg: var(--background);
+  --color-fg: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-fg: var(--muted-foreground);
+}
+
+/* ---------------------------------------------------------------------------
+   Base Styles
+   --------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter, system-ui, -apple-system, sans-serif);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-@theme inline {
-  --color-navy: #1B2A4A;
-  --color-navy-light: #243656;
-  --color-navy-dark: #121d33;
-  --color-blue: #2E75B6;
-  --color-teal: #0EA5E9;
-  --color-green: #10B981;
-  --color-amber: #F59E0B;
-  --color-red: #EF4444;
+/* ---------------------------------------------------------------------------
+   Transitions
+   --------------------------------------------------------------------------- */
+
+* {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+/* Opt out for things that shouldn't animate on every render */
+input,
+textarea,
+[data-no-transition] {
+  transition-property: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Scrollbar Styling (dark mode)
+   --------------------------------------------------------------------------- */
+
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--navy-dark);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--navy-light);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--blue);
 }

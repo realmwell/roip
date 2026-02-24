@@ -1,0 +1,16 @@
+{
+  "name": "Latency Troubleshooting",
+  "description": "Queries about diagnosing and fixing latency issues",
+  "queries": [
+    {"query": "Our RAG assistant's P95 latency jumped from 2s to 8s last week. Where do I start?", "expected_topics": ["latency diagnosis", "pipeline profiling"]},
+    {"query": "How do I isolate whether the latency issue is in our embedding generation, vector search, or LLM call?", "expected_topics": ["per-stage timing", "instrumentation"]},
+    {"query": "We're seeing cold start latency of 5 seconds on our Lambda-based RAG. How do I fix this?", "expected_topics": ["cold start", "provisioned concurrency"]},
+    {"query": "What's a good P50 and P95 latency target for a production RAG system?", "expected_topics": ["SLOs", "benchmarks"]},
+    {"query": "Our vector search is taking 300ms when it used to take 50ms. The index grew from 10K to 500K vectors.", "expected_topics": ["index optimization", "HNSW parameters"]},
+    {"query": "How does prompt caching help with latency?", "expected_topics": ["prompt caching", "50% discount"]},
+    {"query": "We noticed latency spikes every Monday morning. Could this be related to cold starts?", "expected_topics": ["traffic patterns", "warming"]},
+    {"query": "Our output token count has been increasing over time, making responses slower. How do we control this?", "expected_topics": ["max_tokens", "structured outputs"]},
+    {"query": "Should we use streaming to improve perceived latency?", "expected_topics": ["streaming", "time to first token"]},
+    {"query": "What's the latency impact of adding a reranking step to our retrieval pipeline?", "expected_topics": ["reranking", "latency tradeoff"]}
+  ]
+}

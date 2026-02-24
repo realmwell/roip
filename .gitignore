@@ -33,6 +33,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# generated docs
-ROIP_Architecture_Brief.docx
-ROIP_Presentation.pptx
+# generated docs (keep in repo for reviewers)

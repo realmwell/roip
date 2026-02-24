@@ -1,0 +1,16 @@
+{
+  "name": "Cost Optimization",
+  "description": "Queries about reducing OpenAI API costs",
+  "queries": [
+    {"query": "Our monthly OpenAI bill went from $5K to $15K after adding 3 new teams. How do we get costs under control?", "expected_topics": ["cost analysis", "model routing"]},
+    {"query": "What's the cost difference between using GPT-4.1 vs GPT-4.1-mini for a RAG chatbot?", "expected_topics": ["model pricing", "cost comparison"]},
+    {"query": "How much can semantic caching realistically save us?", "expected_topics": ["cache hit rate", "30-40% savings"]},
+    {"query": "Should we use the Batch API for our nightly re-indexing?", "expected_topics": ["batch API", "50% discount"]},
+    {"query": "Our system prompt is 3000 tokens. Is prompt caching helping us?", "expected_topics": ["prompt caching", "token threshold"]},
+    {"query": "How do we set up per-team cost tracking with OpenAI?", "expected_topics": ["project keys", "usage dashboard"]},
+    {"query": "What's a good cost-per-query target for an enterprise RAG system?", "expected_topics": ["cost benchmarks", "SLOs"]},
+    {"query": "We're paying for GPT-4o. Should we migrate to GPT-4.1-mini?", "expected_topics": ["model migration", "cost savings"]},
+    {"query": "How do I implement query routing to send simple questions to cheaper models?", "expected_topics": ["query routing", "model selection"]},
+    {"query": "Our embedding costs are high. How do we reduce them?", "expected_topics": ["embedding optimization", "batch API", "MRL"]}
+  ]
+}

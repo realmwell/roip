@@ -34,6 +34,13 @@ User Query → Query Router (GPT-4.1-nano) → Semantic Cache Check (Redis)
        → Post-process (cache, store history, record metrics)
 ```
 
+## Companion Documents
+
+- **[ROIP_Architecture_Brief.docx](./ROIP_Architecture_Brief.docx)** — 8-page architecture brief covering system design, tradeoff analysis, scalability path, and assignment mapping
+- **[ROIP_Presentation.pptx](./ROIP_Presentation.pptx)** — 10-slide presentation: scenario analysis, diagnosis, action plan, tradeoffs, and demo overview
+
+Both are generated programmatically from scripts in `scripts/`.
+
 ## Quick Start
 
 ```bash

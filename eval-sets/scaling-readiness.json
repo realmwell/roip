@@ -1,0 +1,16 @@
+{
+  "name": "Scaling Readiness",
+  "description": "Queries about scaling RAG to more users and teams",
+  "queries": [
+    {"query": "We want to expand our RAG system from 1 team to 5 teams next quarter. What should we prepare?", "expected_topics": ["scaling checklist", "phased rollout"]},
+    {"query": "How do I calculate the rate limit tier we need for 1000 users?", "expected_topics": ["TPM/RPM calculation", "tier planning"]},
+    {"query": "What's the right approach to onboard a new team to our RAG system?", "expected_topics": ["burn-in period", "pilot users"]},
+    {"query": "How should we handle multiple knowledge bases for different teams?", "expected_topics": ["namespaces", "multi-tenancy"]},
+    {"query": "We're hitting 429 errors during peak hours. What's the best way to handle this?", "expected_topics": ["rate limiting", "backoff", "tier upgrade"]},
+    {"query": "How do we ensure quality doesn't degrade as we add more users?", "expected_topics": ["SLOs", "monitoring", "evaluation"]},
+    {"query": "Should we use separate API keys for each team?", "expected_topics": ["project keys", "cost attribution"]},
+    {"query": "What monitoring should we have in place before scaling?", "expected_topics": ["dashboards", "alerts", "SLOs"]},
+    {"query": "How do we load test our RAG system before expanding?", "expected_topics": ["load testing", "staging"]},
+    {"query": "What's the phased rollout approach for enterprise RAG?", "expected_topics": ["stabilize", "optimize", "pilot", "expand"]}
+  ]
+}

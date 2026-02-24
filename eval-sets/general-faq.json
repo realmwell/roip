@@ -1,0 +1,21 @@
+{
+  "name": "General FAQ",
+  "description": "General questions about OpenAI API and RAG",
+  "queries": [
+    {"query": "What's the difference between the Responses API and the Chat Completions API?", "expected_topics": ["Responses API", "Chat Completions"]},
+    {"query": "How do structured outputs work?", "expected_topics": ["JSON schema", "100% compliance"]},
+    {"query": "What embedding model should I use for RAG?", "expected_topics": ["text-embedding-3-small", "512 dimensions"]},
+    {"query": "How do I choose the right chunking strategy?", "expected_topics": ["chunk size", "300-500 tokens"]},
+    {"query": "What is the AWS Well-Architected ML Lens?", "expected_topics": ["five pillars", "ML workloads"]},
+    {"query": "How does GPT-4.1 compare to GPT-4o?", "expected_topics": ["pricing", "context window", "deprecation"]},
+    {"query": "What's a good error rate target for a RAG system?", "expected_topics": ["SLOs", "less than 1%"]},
+    {"query": "How do I implement semantic caching?", "expected_topics": ["Redis", "cosine similarity", "0.95 threshold"]},
+    {"query": "When should I use the Batch API vs synchronous API?", "expected_topics": ["batch API", "24hr window", "50% discount"]},
+    {"query": "What rate limit tier do I need for production?", "expected_topics": ["tier table", "TPM/RPM"]},
+    {"query": "How do I handle model deprecations?", "expected_topics": ["pin snapshots", "6 month notice"]},
+    {"query": "What's the best way to evaluate RAG quality?", "expected_topics": ["RAGAS", "LLM-as-judge"]},
+    {"query": "How can I reduce hallucinations in my RAG system?", "expected_topics": ["retrieval quality", "faithfulness"]},
+    {"query": "What's hybrid retrieval and should I use it?", "expected_topics": ["vector + BM25", "recall improvement"]},
+    {"query": "How do I monitor my OpenAI API usage?", "expected_topics": ["usage dashboard", "cost alerts"]}
+  ]
+}
