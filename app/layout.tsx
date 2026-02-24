@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import Nav from "@/components/layout/Nav";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
-  title: "ROIP - RAG Operations Intelligence Platform",
+  title: "ROIP — RAG Operations Intelligence Platform",
   description:
-    "Enterprise RAG troubleshooting demo built with Next.js, OpenAI Responses API, Pinecone, and Upstash Redis",
+    "Enterprise RAG troubleshooting, evaluation, and optimization. Built with OpenAI Responses API, Pinecone, and Upstash Redis.",
 };
 
 export default function RootLayout({
@@ -18,7 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${dmSans.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="min-h-screen bg-bg text-fg antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <Nav />

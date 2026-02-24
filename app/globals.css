@@ -9,17 +9,31 @@
   --navy-light: #243656;
   --navy-dark: #121d33;
   --blue: #2e75b6;
+  --light-blue: #e8f0fe;
   --teal: #0ea5e9;
   --green: #10b981;
   --amber: #f59e0b;
   --red: #ef4444;
 
-  --background: #ffffff;
-  --foreground: #171717;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-500: #6b7280;
+  --gray-700: #374151;
+  --gray-900: #111827;
+
+  --background: #f9fafb;
+  --foreground: #111827;
   --card-bg: #ffffff;
   --card-border: #e5e7eb;
   --muted: #f3f4f6;
   --muted-foreground: #6b7280;
+
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08),
+    0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
 
 .dark {
@@ -29,6 +43,11 @@
   --card-border: #1e3055;
   --muted: #1a2744;
   --muted-foreground: #9ca3af;
+
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -4px rgba(0, 0, 0, 0.2);
 }
 
 /* ---------------------------------------------------------------------------
@@ -40,6 +59,7 @@
   --color-navy-light: #243656;
   --color-navy-dark: #121d33;
   --color-blue: #2e75b6;
+  --color-light-blue: #e8f0fe;
   --color-teal: #0ea5e9;
   --color-green: #10b981;
   --color-amber: #f59e0b;
@@ -51,6 +71,11 @@
   --color-fg: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-fg: var(--muted-foreground);
+
+  --font-sans: var(--font-dm-sans), "DM Sans", system-ui, -apple-system,
+    sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", "SF Mono", "Fira Code",
+    monospace;
 }
 
 /* ---------------------------------------------------------------------------
@@ -64,7 +89,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter, system-ui, -apple-system, sans-serif);
+  font-family: var(--font-dm-sans, system-ui, -apple-system, sans-serif);
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -78,7 +103,6 @@ body {
   transition-timing-function: ease;
 }
 
-/* Opt out for things that shouldn't animate on every render */
 input,
 textarea,
 [data-no-transition] {
@@ -105,4 +129,97 @@ textarea,
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: var(--blue);
+}
+
+/* ---------------------------------------------------------------------------
+   Landing Page Animations
+   --------------------------------------------------------------------------- */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out both;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.5s ease-out both;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* ---------------------------------------------------------------------------
+   Code Block Styles
+   --------------------------------------------------------------------------- */
+
+.code-block {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 13px;
+  overflow-x: auto;
+  line-height: 1.7;
+}
+
+.code-block .comment { color: #6c7086; }
+.code-block .keyword { color: #cba6f7; }
+.code-block .string { color: #a6e3a1; }
+.code-block .func { color: #89b4fa; }
+
+/* ---------------------------------------------------------------------------
+   Hero Gradient
+   --------------------------------------------------------------------------- */
+
+.hero-gradient {
+  background: linear-gradient(135deg, #1b2a4a 0%, #2d4a7a 50%, #1b3a6a 100%);
+  position: relative;
+}
+
+.hero-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(14, 165, 233, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(46, 117, 182, 0.06) 0%, transparent 60%);
+  pointer-events: none;
 }

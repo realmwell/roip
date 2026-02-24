@@ -3,14 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, LayoutDashboard, MessageSquare, Database, FlaskConical } from "lucide-react";
+import {
+  Menu,
+  X,
+  LayoutDashboard,
+  MessageSquare,
+  Database,
+  FlaskConical,
+  Home,
+  Info,
+} from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/chat", label: "Chat", icon: MessageSquare },
   { href: "/corpus", label: "Corpus", icon: Database },
   { href: "/eval", label: "Evaluation", icon: FlaskConical },
+  { href: "/about", label: "About", icon: Info },
 ] as const;
 
 export default function Nav() {
