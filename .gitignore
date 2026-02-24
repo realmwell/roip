@@ -34,3 +34,14 @@ yarn-error.log*
 next-env.d.ts
 
 # generated docs (keep in repo for reviewers)
+
+# presentation outputs
+*.pptx
+*.html
+!app/**/*.html
+!public/**/*.html
+.claude-design/
+
+# document outputs
+*.docx
+~$*

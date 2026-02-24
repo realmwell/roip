@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   ArrowLeft,
   BookOpen,
@@ -17,9 +17,9 @@ import ThemeToggle from "@/components/layout/ThemeToggle";
 
 /* ---------- Types ---------- */
 
-interface SearchResult {
+interface CorpusDoc {
   id: string;
-  score: number;
+  score?: number;
   title: string;
   category: string;
   content: string;
@@ -27,13 +27,12 @@ interface SearchResult {
   tags?: string[];
 }
 
-/* ---------- Category cards for the default view ---------- */
+/* ---------- Category hero cards ---------- */
 
 const HERO_CARDS = [
   {
     id: "openai-platform",
     label: "OpenAI Platform",
-    count: 12,
     icon: Layers,
     color: "border-blue/40 hover:border-blue",
     iconColor: "text-blue",
@@ -42,7 +41,6 @@ const HERO_CARDS = [
   {
     id: "aws-ml-lens",
     label: "AWS ML Lens",
-    count: 6,
     icon: Cloud,
     color: "border-amber/40 hover:border-amber",
     iconColor: "text-amber",
@@ -51,7 +49,6 @@ const HERO_CARDS = [
   {
     id: "rag-patterns",
     label: "RAG Patterns",
-    count: 8,
     icon: BookOpen,
     color: "border-teal/40 hover:border-teal",
     iconColor: "text-teal",
@@ -60,7 +57,6 @@ const HERO_CARDS = [
   {
     id: "troubleshooting",
     label: "Troubleshooting",
-    count: 6,
     icon: AlertTriangle,
     color: "border-red/40 hover:border-red",
     iconColor: "text-red",
@@ -69,7 +65,6 @@ const HERO_CARDS = [
   {
     id: "case-studies",
     label: "Case Studies",
-    count: 3,
     icon: Briefcase,
     color: "border-green/40 hover:border-green",
     iconColor: "text-green",
@@ -80,66 +75,85 @@ const HERO_CARDS = [
 /* ---------- Page Component ---------- */
 
 export default function CorpusPage() {
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  /* All corpus docs (loaded once from /api/corpus/list) */
+  const [allDocs, setAllDocs] = useState<CorpusDoc[]>([]);
+  const [allDocsLoading, setAllDocsLoading] = useState(true);
+
+  /* Search state */
+  const [searchResults, setSearchResults] = useState<CorpusDoc[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [activeQuery, setActiveQuery] = useState("");
 
-  /* Derive counts from results */
-  const categoryCounts = results.reduce<Record<string, number>>((acc, r) => {
-    acc[r.category] = (acc[r.category] || 0) + 1;
+  /* Category filter */
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  /* Load all docs on mount */
+  useEffect(() => {
+    fetch("/api/corpus/list")
+      .then((res) => res.json())
+      .then((data) => setAllDocs(data.results ?? []))
+      .catch(() => setAllDocs([]))
+      .finally(() => setAllDocsLoading(false));
+  }, []);
+
+  /* Compute category counts from the full corpus */
+  const categoryCounts = allDocs.reduce<Record<string, number>>((acc, d) => {
+    acc[d.category] = (acc[d.category] || 0) + 1;
     return acc;
   }, {});
 
-  /* Filtered results based on sidebar selection */
+  /* What to display */
+  const source = isSearching ? searchResults : allDocs;
   const displayed = selectedCategory
-    ? results.filter((r) => r.category === selectedCategory)
-    : results;
+    ? source.filter((d) => d.category === selectedCategory)
+    : source;
 
-  /* Search handler (passed to SearchBar) */
+  /* Whether we're in "browse" mode (show hero cards) vs "list" mode */
+  const showHeroCards = !isSearching && !selectedCategory && !allDocsLoading;
+  const showDocList = isSearching || selectedCategory !== null;
+
+  /* Search handler */
   const handleSearch = useCallback(
     async (query: string) => {
       setActiveQuery(query);
 
       if (!query) {
-        setResults([]);
-        setHasSearched(false);
-        setSelectedCategory(null);
+        setIsSearching(false);
+        setSearchResults([]);
         return;
       }
 
-      setLoading(true);
-      setHasSearched(true);
+      setIsSearching(true);
+      setSearchLoading(true);
 
       try {
         const params = new URLSearchParams({ q: query });
+        if (selectedCategory) params.set("cat", selectedCategory);
         const res = await fetch(`/api/corpus/search?${params}`);
         const data = await res.json();
-        setResults(data.results ?? []);
+        setSearchResults(data.results ?? []);
       } catch {
-        setResults([]);
+        setSearchResults([]);
       } finally {
-        setLoading(false);
+        setSearchLoading(false);
       }
     },
-    []
+    [selectedCategory]
   );
 
-  /* Click a hero category card to search by category name */
-  function handleCategoryCardClick(categoryId: string, label: string) {
+  /* Click a hero category card */
+  function handleCategoryCardClick(categoryId: string) {
     setSelectedCategory(categoryId);
-    setActiveQuery(label);
-    setHasSearched(true);
-    setLoading(true);
-
-    const params = new URLSearchParams({ q: label, cat: categoryId });
-    fetch(`/api/corpus/search?${params}`)
-      .then((res) => res.json())
-      .then((data) => setResults(data.results ?? []))
-      .catch(() => setResults([]))
-      .finally(() => setLoading(false));
+    /* No search needed — we filter allDocs locally */
   }
+
+  /* Handle category sidebar clicks */
+  function handleCategorySelect(cat: string | null) {
+    setSelectedCategory(cat);
+  }
+
+  const loading = allDocsLoading || searchLoading;
 
   return (
     <div className="min-h-screen bg-bg">
@@ -156,6 +170,11 @@ export default function CorpusPage() {
             </a>
             <span className="text-surface-border">/</span>
             <h1 className="text-sm font-semibold text-fg">Knowledge Corpus</h1>
+            {!allDocsLoading && (
+              <span className="text-xs text-muted-fg ml-1">
+                ({allDocs.length} documents)
+              </span>
+            )}
           </div>
           <ThemeToggle />
         </div>
@@ -166,7 +185,7 @@ export default function CorpusPage() {
         <div className="mb-6">
           <SearchBar
             onSearch={handleSearch}
-            resultCount={hasSearched && !loading ? displayed.length : undefined}
+            resultCount={isSearching && !searchLoading ? displayed.length : undefined}
           />
         </div>
 
@@ -176,8 +195,8 @@ export default function CorpusPage() {
             <div className="lg:sticky lg:top-20 rounded-xl border border-surface-border bg-surface p-3">
               <CategoryFilter
                 selected={selectedCategory}
-                onSelect={setSelectedCategory}
-                counts={hasSearched ? categoryCounts : undefined}
+                onSelect={handleCategorySelect}
+                counts={allDocs.length > 0 ? categoryCounts : undefined}
               />
             </div>
           </aside>
@@ -188,12 +207,14 @@ export default function CorpusPage() {
             {loading && (
               <div className="flex items-center justify-center py-24">
                 <Loader2 className="h-6 w-6 animate-spin text-teal" />
-                <span className="ml-2 text-sm text-muted-fg">Searching...</span>
+                <span className="ml-2 text-sm text-muted-fg">
+                  {allDocsLoading ? "Loading corpus..." : "Searching..."}
+                </span>
               </div>
             )}
 
-            {/* Default view: category hero cards */}
-            {!loading && !hasSearched && (
+            {/* Default browse view: category hero cards */}
+            {!loading && showHeroCards && (
               <div>
                 <div className="mb-6">
                   <h2 className="text-lg font-semibold text-fg mb-1">
@@ -207,12 +228,11 @@ export default function CorpusPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {HERO_CARDS.map((card) => {
                     const Icon = card.icon;
+                    const count = categoryCounts[card.id] ?? 0;
                     return (
                       <button
                         key={card.id}
-                        onClick={() =>
-                          handleCategoryCardClick(card.id, card.label)
-                        }
+                        onClick={() => handleCategoryCardClick(card.id)}
                         className={`text-left rounded-xl border bg-surface p-5 ${card.color} group`}
                       >
                         <div className="flex items-center gap-3 mb-2">
@@ -221,7 +241,7 @@ export default function CorpusPage() {
                             {card.label}
                           </span>
                           <span className="ml-auto text-xs text-muted-fg tabular-nums">
-                            {card.count} docs
+                            {count} docs
                           </span>
                         </div>
                         <p className="text-sm text-muted-fg leading-relaxed">
@@ -234,8 +254,40 @@ export default function CorpusPage() {
               </div>
             )}
 
-            {/* Results grid */}
-            {!loading && hasSearched && displayed.length > 0 && (
+            {/* Document list (category browse or search results) */}
+            {!loading && showDocList && displayed.length > 0 && (
+              <div>
+                {/* Category heading when browsing */}
+                {selectedCategory && !isSearching && (
+                  <div className="mb-4 flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-fg">
+                      {HERO_CARDS.find((c) => c.id === selectedCategory)?.label ??
+                        selectedCategory}
+                    </h2>
+                    <span className="text-sm text-muted-fg">
+                      {displayed.length} document{displayed.length !== 1 ? "s" : ""}
+                    </span>
+                  </div>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {displayed.map((doc) => (
+                    <DocumentCard
+                      key={doc.id}
+                      id={doc.id}
+                      title={doc.title}
+                      category={doc.category}
+                      score={doc.score ?? 1}
+                      content={doc.content}
+                      sourceUrl={doc.sourceUrl}
+                      tags={doc.tags}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* All docs grid when no category selected and not searching */}
+            {!loading && !showHeroCards && !showDocList && displayed.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {displayed.map((doc) => (
                   <DocumentCard
@@ -243,7 +295,7 @@ export default function CorpusPage() {
                     id={doc.id}
                     title={doc.title}
                     category={doc.category}
-                    score={doc.score}
+                    score={doc.score ?? 1}
                     content={doc.content}
                     sourceUrl={doc.sourceUrl}
                     tags={doc.tags}
@@ -253,7 +305,7 @@ export default function CorpusPage() {
             )}
 
             {/* Empty state */}
-            {!loading && hasSearched && displayed.length === 0 && (
+            {!loading && showDocList && displayed.length === 0 && (
               <div className="flex flex-col items-center justify-center py-24 text-center">
                 <BookOpen className="h-10 w-10 text-muted-fg mb-3 opacity-40" />
                 <p className="text-sm text-muted-fg">
