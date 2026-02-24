@@ -99,14 +99,37 @@ export default function EvalPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const isNdjson = file.name.endsWith(".ndjson");
+
     const reader = new FileReader();
     reader.onload = () => {
       try {
         const content = reader.result as string;
-        JSON.parse(content); // validate JSON
-        setUploadStatus(`Loaded "${file.name}" (${(file.size / 1024).toFixed(1)} KB). Custom query set ready.`);
-      } catch {
-        setUploadStatus(`Error: "${file.name}" is not valid JSON. Please upload a JSON file with an array of query objects.`);
+
+        if (isNdjson) {
+          // Parse newline-delimited JSON: each line is a separate JSON object
+          const lines = content.split("\n").filter((l) => l.trim());
+          const parsed = lines.map((line, idx) => {
+            try {
+              return JSON.parse(line);
+            } catch {
+              throw new Error(`Invalid JSON on line ${idx + 1}`);
+            }
+          });
+          setUploadStatus(
+            `Loaded "${file.name}" (${(file.size / 1024).toFixed(1)} KB, ${parsed.length} records). NDJSON query set ready.`
+          );
+        } else {
+          JSON.parse(content); // validate standard JSON
+          setUploadStatus(
+            `Loaded "${file.name}" (${(file.size / 1024).toFixed(1)} KB). Custom query set ready.`
+          );
+        }
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Unknown parse error";
+        setUploadStatus(
+          `Error: "${file.name}" could not be parsed. ${msg}. Upload a .json array or .ndjson file (one JSON object per line).`
+        );
       }
     };
     reader.readAsText(file);
@@ -172,10 +195,11 @@ export default function EvalPage() {
                     What is the Evaluation Harness?
                   </h2>
                   <p className="text-sm text-muted-fg leading-relaxed">
-                    This tool measures how well the RAG chatbot performs across different configurations.
-                    It sends a batch of test questions through the pipeline, scores each response for quality,
-                    and records the cost and speed of every query. The goal: find the configuration that
-                    delivers the best answers at the lowest cost and latency.
+                    This tool evaluates the <strong className="text-fg">retail enterprise&apos;s RAG chatbot</strong> (the
+                    customer&apos;s Internal Search Assistant), not the ROIP troubleshooting chatbot on this site.
+                    It sends a batch of test questions through the customer&apos;s pipeline, scores each response
+                    for quality, and records the cost and speed of every query. The goal: find the configuration
+                    that delivers the best answers at the lowest cost and latency.
                   </p>
                 </div>
               </div>
@@ -228,17 +252,17 @@ export default function EvalPage() {
                     className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-surface-border bg-muted/50 text-sm font-medium text-fg hover:bg-muted transition-colors"
                   >
                     <Upload className="h-3.5 w-3.5" />
-                    Upload custom query set (JSON)
+                    Upload custom query set
                   </button>
                   <input
                     ref={fileInputRef}
                     type="file"
-                    accept=".json"
+                    accept=".json,.ndjson"
                     onChange={handleFileUpload}
                     className="hidden"
                   />
                   <span className="text-xs text-muted-fg">
-                    Format: <code className="bg-muted px-1.5 py-0.5 rounded text-[11px] font-mono">{"[{\"query\": \"...\", \"expected\": \"...\"}]"}</code>
+                    Accepts <code className="bg-muted px-1.5 py-0.5 rounded text-[11px] font-mono">.json</code> or <code className="bg-muted px-1.5 py-0.5 rounded text-[11px] font-mono">.ndjson</code> (one JSON object per line)
                   </span>
                 </div>
                 {uploadStatus && (
@@ -303,8 +327,8 @@ export default function EvalPage() {
                 <div className="text-center space-y-4 text-muted-fg max-w-sm">
                   <FlaskConical className="h-12 w-12 mx-auto opacity-30" />
                   <p className="text-sm">
-                    Configure your evaluation on the left, then hit Run. The harness will
-                    send each query through the live RAG pipeline and score the responses.
+                    Configure your evaluation on the left, then hit Run. The harness sends
+                    each query through the retail firm&apos;s live RAG pipeline and scores the responses.
                   </p>
                   <div className="text-left space-y-2">
                     {[
