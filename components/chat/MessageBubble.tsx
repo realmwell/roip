@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Bot, User } from "lucide-react";
+import { Bot, User, Loader2 } from "lucide-react";
 import DiagnosisCard, { type DiagnosisData } from "./DiagnosisCard";
 
 // ---------------------------------------------------------------------------
@@ -21,17 +21,15 @@ interface MessageBubbleProps {
 }
 
 // ---------------------------------------------------------------------------
-// JSON detection
+// JSON detection helpers
 // ---------------------------------------------------------------------------
 
 function tryParseDiagnosis(content: string): DiagnosisData | null {
-  // Only try if the content looks like it could be JSON
   const trimmed = content.trim();
   if (!trimmed.startsWith("{")) return null;
 
   try {
     const parsed = JSON.parse(trimmed);
-    // Validate it has the expected shape
     if (
       parsed.diagnosis &&
       parsed.recommended_actions &&
@@ -42,9 +40,24 @@ function tryParseDiagnosis(content: string): DiagnosisData | null {
       return parsed as DiagnosisData;
     }
   } catch {
-    // Not valid JSON
+    // Not valid JSON yet
   }
   return null;
+}
+
+/**
+ * Detect when the assistant is mid-stream outputting JSON that isn't
+ * parseable yet. We show a loading state instead of raw JSON text.
+ */
+function isStreamingJSON(content: string): boolean {
+  const trimmed = content.trim();
+  if (!trimmed.startsWith("{")) return false;
+  try {
+    JSON.parse(trimmed);
+    return false; // valid JSON — not mid-stream
+  } catch {
+    return true; // starts with { but isn't valid JSON yet — still streaming
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -57,6 +70,11 @@ export default function MessageBubble({ message, onFollowUp }: MessageBubbleProp
   const diagnosisData = useMemo(
     () => (isUser ? null : tryParseDiagnosis(message.content)),
     [isUser, message.content]
+  );
+
+  const streamingJSON = useMemo(
+    () => (isUser ? false : !diagnosisData && isStreamingJSON(message.content)),
+    [isUser, diagnosisData, message.content]
   );
 
   return (
@@ -80,7 +98,14 @@ export default function MessageBubble({ message, onFollowUp }: MessageBubbleProp
             : "bg-surface border border-surface-border text-fg rounded-bl-md"
         }`}
       >
-        {diagnosisData ? (
+        {streamingJSON ? (
+          <div className="flex items-center gap-2.5 py-1">
+            <Loader2 className="h-4 w-4 animate-spin text-teal" />
+            <span className="text-sm text-muted-fg">
+              Analyzing and building diagnosis...
+            </span>
+          </div>
+        ) : diagnosisData ? (
           <DiagnosisCard data={diagnosisData} onFollowUp={onFollowUp} />
         ) : isUser ? (
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>

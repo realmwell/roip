@@ -106,7 +106,7 @@ export default function AboutPage() {
             About ROIP
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl">
-            Why We Built a Working Platform Instead of Writing a Document
+            Why I Built a Working Platform Instead of Writing a Document
           </h1>
           <p className="mt-4 text-base text-white/80 max-w-2xl leading-relaxed">
             The OpenAI ASE take-home asks for a 2-3 page brief and a 5-minute
@@ -356,11 +356,11 @@ export default function AboutPage() {
         </section>
 
         {/* ================================================================ */}
-        {/*  How We Built It                                                   */}
+        {/*  How I Built It                                                    */}
         {/* ================================================================ */}
         <section>
           <h2 className="text-xl font-bold text-fg mb-6">
-            How We Built It
+            How I Built It
           </h2>
           <div className="rounded-xl bg-surface border border-surface-border p-6 sm:p-8 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -451,7 +451,7 @@ export default function AboutPage() {
                 </h3>
                 <p className="text-xs text-muted-fg mt-1">
                   10-slide presentation: scenario analysis, diagnosis, action plan,
-                  tradeoffs, and demo overview.
+                  tradeoffs, and platform overview.
                 </p>
               </div>
               <ExternalLink className="h-4 w-4 text-muted-fg shrink-0 mt-1" />

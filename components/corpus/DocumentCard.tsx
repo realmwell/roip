@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, ChevronUp, MessageSquare } from "lucide-react";
+import { ChevronDown, ChevronUp, MessageSquare, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -33,13 +33,12 @@ function categoryLabel(cat: string) {
 export default function DocumentCard({
   title,
   category,
-  score,
   content,
+  sourceUrl,
   tags,
 }: DocumentCardProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const pct = Math.round(score * 100);
   const colorClass = CATEGORY_COLORS[category] ?? "bg-muted text-muted-fg";
   const preview =
     content.length > 220 ? content.slice(0, 220).trimEnd() + "..." : content;
@@ -51,15 +50,20 @@ export default function DocumentCard({
     >
       {/* Header row */}
       <div className="flex items-start justify-between gap-3 mb-3">
-        <h3 className="text-base font-semibold text-fg leading-snug line-clamp-2">
-          {title}
-        </h3>
-        <span
-          className="shrink-0 text-xs font-medium px-2 py-0.5 rounded-full bg-teal/15 text-teal tabular-nums"
-          title="Relevance score"
-        >
-          {pct}%
-        </span>
+        {sourceUrl ? (
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base font-semibold text-fg leading-snug line-clamp-2 hover:text-teal transition-colors"
+          >
+            {title}
+          </a>
+        ) : (
+          <h3 className="text-base font-semibold text-fg leading-snug line-clamp-2">
+            {title}
+          </h3>
+        )}
       </div>
 
       {/* Category badge */}
@@ -110,6 +114,18 @@ export default function DocumentCard({
             </>
           )}
         </button>
+
+        {sourceUrl && (
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-xs font-medium text-blue hover:text-teal"
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            View source
+          </a>
+        )}
 
         <a
           href={`/chat?q=${encodeURIComponent(title)}`}

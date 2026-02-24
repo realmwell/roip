@@ -201,7 +201,7 @@ export default function LandingPage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
           <div className="animate-fade-in-up">
             <span className="inline-block bg-white/15 px-3 py-1 rounded-full text-xs font-medium tracking-wider uppercase mb-5">
-              Enterprise RAG Tooling
+              Powered by OpenAI
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight max-w-3xl animate-fade-in-up stagger-1">
@@ -209,8 +209,8 @@ export default function LandingPage() {
           </h1>
           <p className="mt-4 text-base sm:text-lg text-white/80 max-w-2xl leading-relaxed animate-fade-in-up stagger-2">
             Diagnose production RAG issues, optimize OpenAI API usage, and plan
-            phased enterprise rollouts. A working demo that ships the exact skills
-            an AI Success Engineer needs.
+            phased enterprise rollouts. Built exclusively on OpenAI models, this
+            platform ships the exact skills an AI Success Engineer needs.
           </p>
 
           <div className="flex flex-wrap gap-3 mt-8 animate-fade-in-up stagger-3">
@@ -230,7 +230,16 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <div className="flex gap-6 mt-10 text-[13px] text-white/60 animate-fade-in stagger-4">
+          <div className="mt-10 inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-5 py-3 animate-fade-in stagger-4">
+            <span className="text-xs font-semibold text-white/90 uppercase tracking-wider">All analysis powered by</span>
+            <span className="text-sm font-bold text-white">GPT-4.1-mini</span>
+            <span className="text-white/40">|</span>
+            <span className="text-sm font-bold text-white">GPT-4.1-nano</span>
+            <span className="text-white/40">|</span>
+            <span className="text-sm font-bold text-white">GPT-4.1</span>
+          </div>
+
+          <div className="flex gap-6 mt-5 text-[13px] text-white/60 animate-fade-in stagger-5">
             <span>Prepared by Max Greenberg</span>
             <span className="hidden sm:inline">|</span>
             <span className="hidden sm:inline">OpenAI ASE Take-Home</span>
@@ -273,7 +282,7 @@ export default function LandingPage() {
             <FeatureCard
               icon={MessageSquare}
               title="RAG Troubleshooting Chatbot"
-              description="An OpenAI-powered assistant that diagnoses latency, error rate, and cost issues in enterprise RAG deployments. Uses query routing and structured diagnosis outputs."
+              description="Powered exclusively by OpenAI models, this assistant diagnoses latency, error rate, and cost issues in enterprise RAG deployments. Uses query routing and structured diagnosis outputs."
               href="/chat"
               linkLabel="Open chatbot"
               accentColor="bg-teal"
@@ -358,12 +367,12 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10 animate-fade-in-up">
             <h2 className="text-2xl sm:text-3xl font-bold text-fg">
-              Demo Stack Architecture
+              Stack Architecture
             </h2>
             <p className="mt-3 text-sm text-muted-fg max-w-xl mx-auto">
               Zero idle cost. Every service runs on a free tier. The ideal
-              enterprise deployment uses AWS managed services; this demo proves
-              the concept.
+              enterprise deployment uses AWS managed services; this architecture
+              proves the concept.
             </p>
           </div>
 
@@ -415,7 +424,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 animate-fade-in-up">
             <h2 className="text-2xl sm:text-3xl font-bold text-fg">
-              Why build the tool instead of writing about it?
+              Why build the tool instead of just writing about it?
             </h2>
           </div>
 
@@ -454,7 +463,7 @@ export default function LandingPage() {
               {
                 icon: DollarSign,
                 title: "Zero idle cost",
-                text: "Every service is on a free tier. The demo runs at $0/month when not in use. No infrastructure burden.",
+                text: "Every service is on a free tier. Runs at $0/month when not in use. No infrastructure burden.",
                 delay: "stagger-6",
               },
             ].map((item) => (
