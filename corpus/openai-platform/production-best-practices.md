@@ -2,7 +2,7 @@
 title: "Production Best Practices"
 category: "openai-platform"
 tags: ["production", "reliability", "monitoring", "retry-logic", "best-practices"]
-source_url: "https://platform.openai.com/docs/guides/production-best-practices"
+source_url: "https://developers.openai.com/api/docs/guides/production-best-practices"
 last_updated: "2026-02-24"
 ---
 

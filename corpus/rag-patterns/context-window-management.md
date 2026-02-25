@@ -2,7 +2,7 @@
 title: "Context Window Management for RAG Systems"
 category: "rag-patterns"
 tags: ["context-window", "token-budgets", "prompt-engineering", "structured-outputs", "cost-control"]
-source_url: "https://platform.openai.com/docs/guides/text-generation"
+source_url: "https://developers.openai.com/api/docs/guides/text"
 last_updated: "2026-02-24"
 ---
 

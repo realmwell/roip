@@ -2,7 +2,7 @@
 title: "Rate Limits Guide"
 category: "openai-platform"
 tags: ["rate-limits", "429-errors", "tiers", "throttling", "production"]
-source_url: "https://platform.openai.com/docs/guides/rate-limits"
+source_url: "https://developers.openai.com/api/docs/guides/rate-limits"
 last_updated: "2026-02-24"
 ---
 

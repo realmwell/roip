@@ -2,7 +2,7 @@
 title: "Responses API Guide"
 category: "openai-platform"
 tags: ["responses-api", "api", "assistants", "chat-completions", "tools"]
-source_url: "https://platform.openai.com/docs/guides/responses"
+source_url: "https://developers.openai.com/api/docs/guides/text"
 last_updated: "2026-02-24"
 ---
 

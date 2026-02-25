@@ -2,7 +2,7 @@
 title: "Enterprise Features"
 category: "openai-platform"
 tags: ["enterprise", "zdr", "security", "compliance", "api-keys"]
-source_url: "https://platform.openai.com/docs/guides/enterprise"
+source_url: "https://developers.openai.com/api/docs/guides/your-data"
 last_updated: "2026-02-24"
 ---
 

@@ -2,7 +2,7 @@
 title: "Embeddings Guide"
 category: "openai-platform"
 tags: ["embeddings", "vectors", "mrl", "text-embedding-3", "retrieval"]
-source_url: "https://platform.openai.com/docs/guides/embeddings"
+source_url: "https://developers.openai.com/api/docs/guides/embeddings"
 last_updated: "2026-02-24"
 ---
 

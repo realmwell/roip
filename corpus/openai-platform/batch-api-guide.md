@@ -2,7 +2,7 @@
 title: "Batch API Guide"
 category: "openai-platform"
 tags: ["batch-api", "cost-optimization", "bulk-processing", "async"]
-source_url: "https://platform.openai.com/docs/guides/batch"
+source_url: "https://developers.openai.com/api/docs/guides/batch"
 last_updated: "2026-02-24"
 ---
 

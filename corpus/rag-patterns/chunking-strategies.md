@@ -2,7 +2,7 @@
 title: "Chunking Strategies for RAG Knowledge Bases"
 category: "rag-patterns"
 tags: ["chunking", "preprocessing", "embeddings", "retrieval-quality", "document-processing"]
-source_url: "https://platform.openai.com/docs/guides/embeddings"
+source_url: "https://developers.openai.com/api/docs/guides/embeddings"
 last_updated: "2026-02-24"
 ---
 

@@ -2,7 +2,7 @@
 title: "Embedding Optimization for RAG Pipelines"
 category: "rag-patterns"
 tags: ["embeddings", "text-embedding-3-small", "mrl", "batch-api", "storage-optimization"]
-source_url: "https://platform.openai.com/docs/guides/embeddings"
+source_url: "https://developers.openai.com/api/docs/guides/embeddings"
 last_updated: "2026-02-24"
 ---
 

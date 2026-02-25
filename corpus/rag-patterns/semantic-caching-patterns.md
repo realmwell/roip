@@ -2,7 +2,7 @@
 title: "Semantic Caching Patterns for RAG Pipelines"
 category: "rag-patterns"
 tags: ["caching", "redis", "cosine-similarity", "latency", "cost-optimization"]
-source_url: "https://platform.openai.com/docs/guides/prompt-caching"
+source_url: "https://developers.openai.com/api/docs/guides/prompt-caching"
 last_updated: "2026-02-24"
 ---
 

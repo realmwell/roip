@@ -2,7 +2,7 @@
 title: "OpenAI Models Overview and Pricing"
 category: "openai-platform"
 tags: ["models", "pricing", "context-window", "gpt-4.1", "embeddings"]
-source_url: "https://platform.openai.com/docs/models"
+source_url: "https://developers.openai.com/api/docs/models"
 last_updated: "2026-02-24"
 ---
 

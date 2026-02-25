@@ -2,7 +2,7 @@
 title: "Error Rate Triage Decision Tree"
 category: "troubleshooting"
 tags: ["errors", "429", "500", "rate-limits", "circuit-breaker", "moderation"]
-source_url: "https://platform.openai.com/docs/guides/error-codes"
+source_url: "https://developers.openai.com/api/docs/guides/error-codes"
 last_updated: "2026-02-24"
 ---
 

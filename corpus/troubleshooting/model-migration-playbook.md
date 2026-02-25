@@ -2,7 +2,7 @@
 title: "Model Migration Playbook"
 category: "troubleshooting"
 tags: ["migration", "gpt-4o", "gpt-4.1", "responses-api", "assistants-api", "model-versioning"]
-source_url: "https://platform.openai.com/docs/models"
+source_url: "https://developers.openai.com/api/docs/models"
 last_updated: "2026-02-24"
 ---
 

@@ -2,7 +2,7 @@
 title: "Deprecation Policy"
 category: "openai-platform"
 tags: ["deprecation", "model-lifecycle", "migration", "versioning"]
-source_url: "https://platform.openai.com/docs/deprecations"
+source_url: "https://developers.openai.com/api/docs/deprecations"
 last_updated: "2026-02-24"
 ---
 

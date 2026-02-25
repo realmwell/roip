@@ -2,7 +2,7 @@
 title: "Case Study: Multi-Team RAG Scaling Playbook"
 category: "case-studies"
 tags: ["scaling", "multi-team", "phased-rollout", "api-keys", "burn-in", "enterprise"]
-source_url: "https://platform.openai.com/docs/guides/rate-limits"
+source_url: "https://developers.openai.com/api/docs/guides/rate-limits"
 last_updated: "2026-02-24"
 ---
 

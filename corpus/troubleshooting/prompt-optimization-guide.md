@@ -2,7 +2,7 @@
 title: "Prompt Optimization Guide for Cost and Performance"
 category: "troubleshooting"
 tags: ["prompts", "optimization", "prompt-caching", "structured-outputs", "token-reduction"]
-source_url: "https://platform.openai.com/docs/guides/prompt-caching"
+source_url: "https://developers.openai.com/api/docs/guides/prompt-caching"
 last_updated: "2026-02-24"
 ---
 

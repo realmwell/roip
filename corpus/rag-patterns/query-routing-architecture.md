@@ -2,7 +2,7 @@
 title: "Query Routing Architecture for Cost-Efficient RAG"
 category: "rag-patterns"
 tags: ["routing", "cost-optimization", "latency", "model-selection", "structured-outputs"]
-source_url: "https://platform.openai.com/docs/guides/optimizing-llm-accuracy"
+source_url: "https://developers.openai.com/api/docs/guides/optimizing-llm-accuracy"
 last_updated: "2026-02-24"
 ---
 

@@ -2,7 +2,7 @@
 title: "Hybrid Retrieval: Combining Dense and Sparse Search"
 category: "rag-patterns"
 tags: ["retrieval", "bm25", "vector-search", "reciprocal-rank-fusion", "recall"]
-source_url: "https://platform.openai.com/docs/guides/embeddings"
+source_url: "https://developers.openai.com/api/docs/guides/embeddings"
 last_updated: "2026-02-24"
 ---
 

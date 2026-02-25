@@ -2,7 +2,7 @@
 title: "Latency Diagnosis Decision Tree"
 category: "troubleshooting"
 tags: ["latency", "diagnosis", "decision-tree", "performance", "debugging"]
-source_url: "https://platform.openai.com/docs/guides/latency-optimization"
+source_url: "https://developers.openai.com/api/docs/guides/latency-optimization"
 last_updated: "2026-02-24"
 ---
 

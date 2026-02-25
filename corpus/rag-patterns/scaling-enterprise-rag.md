@@ -2,7 +2,7 @@
 title: "Scaling Enterprise RAG Across Teams"
 category: "rag-patterns"
 tags: ["enterprise", "scaling", "api-keys", "namespaces", "rate-limits", "multi-tenant"]
-source_url: "https://platform.openai.com/docs/guides/rate-limits"
+source_url: "https://developers.openai.com/api/docs/guides/rate-limits"
 last_updated: "2026-02-24"
 ---
 

@@ -2,7 +2,7 @@
 title: "Structured Outputs Guide"
 category: "openai-platform"
 tags: ["structured-outputs", "json-schema", "parsing", "reliability"]
-source_url: "https://platform.openai.com/docs/guides/structured-outputs"
+source_url: "https://developers.openai.com/api/docs/guides/structured-outputs"
 last_updated: "2026-02-24"
 ---
 

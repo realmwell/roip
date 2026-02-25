@@ -2,7 +2,7 @@
 title: "Case Study: Retail RAG Optimization for Enterprise Scale"
 category: "case-studies"
 tags: ["retail", "optimization", "model-routing", "semantic-caching", "prompt-caching", "cost-reduction"]
-source_url: "https://platform.openai.com/docs/guides/optimizing-llm-accuracy"
+source_url: "https://developers.openai.com/api/docs/guides/optimizing-llm-accuracy"
 last_updated: "2026-02-24"
 ---
 

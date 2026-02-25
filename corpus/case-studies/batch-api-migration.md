@@ -2,7 +2,7 @@
 title: "Case Study: Batch API Migration for Enterprise RAG"
 category: "case-studies"
 tags: ["batch-api", "cost-savings", "re-indexing", "evaluation", "analytics", "async"]
-source_url: "https://platform.openai.com/docs/guides/batch"
+source_url: "https://developers.openai.com/api/docs/guides/batch"
 last_updated: "2026-02-24"
 ---
 
