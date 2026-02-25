@@ -9,7 +9,7 @@ import {
   LayoutDashboard,
   MessageSquare,
   Database,
-  FlaskConical,
+  ClipboardCheck,
   Home,
   Info,
 } from "lucide-react";
@@ -20,7 +20,7 @@ const links = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/chat", label: "Chat", icon: MessageSquare },
   { href: "/corpus", label: "Corpus", icon: Database },
-  { href: "/eval", label: "Evaluation", icon: FlaskConical },
+  { href: "/assessment", label: "Assessment", icon: ClipboardCheck },
   { href: "/about", label: "About", icon: Info },
 ] as const;
 

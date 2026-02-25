@@ -27,7 +27,7 @@ export interface AggregatedResults {
 // Model pricing (per 1M tokens, as of Feb 2026)
 // ---------------------------------------------------------------------------
 
-const MODEL_PRICING: Record<string, { input: number; output: number }> = {
+export const MODEL_PRICING: Record<string, { input: number; output: number }> = {
   "gpt-4.1": { input: 2.0, output: 8.0 },
   "gpt-4.1-mini": { input: 0.4, output: 1.6 },
   "gpt-4.1-nano": { input: 0.1, output: 0.4 },
@@ -150,7 +150,7 @@ export function calculateCost(
 // Helpers
 // ---------------------------------------------------------------------------
 
-function percentile(sorted: number[], p: number): number {
+export function percentile(sorted: number[], p: number): number {
   if (sorted.length === 0) return 0;
   const index = (p / 100) * (sorted.length - 1);
   const lower = Math.floor(index);
