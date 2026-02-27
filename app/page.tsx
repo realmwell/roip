@@ -427,52 +427,52 @@ export default function LandingPage() {
       </section>
 
       {/* ================================================================== */}
-      {/*  Why This Approach                                                   */}
+      {/*  What You Can Do With RAGOIP                                         */}
       {/* ================================================================== */}
       <section className="py-16 sm:py-20 bg-surface border-y border-surface-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 animate-fade-in-up">
             <h2 className="text-2xl sm:text-3xl font-bold text-fg">
-              Why build the tool instead of just writing about it?
+              What you can do with RAGOIP
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                icon: Zap,
-                title: "Demonstrates the techniques",
-                text: "Query routing, prompt caching, semantic caching, and structured outputs are all used in the platform itself.",
+                icon: Search,
+                title: "Diagnose pipeline issues",
+                text: "Ask the chatbot about latency spikes, error rates, or cost overruns and get a structured diagnosis with recommended fixes.",
                 delay: "stagger-1",
               },
               {
-                icon: Search,
-                title: "Self-serve diagnostics",
-                text: "Operators can troubleshoot common RAG issues without filing a ticket. Ask the chatbot, get a structured diagnosis.",
+                icon: ClipboardCheck,
+                title: "Quantify optimization savings",
+                text: "Run the pipeline assessment to see exactly how much each optimization lever (routing, caching, batching) saves in cost and latency.",
                 delay: "stagger-2",
               },
               {
-                icon: ClipboardCheck,
-                title: "Quantified optimization",
-                text: "Run the pipeline assessment to see exactly how much each optimization lever saves in cost and latency.",
+                icon: Activity,
+                title: "Monitor pipeline health",
+                text: "Upload telemetry logs and the dashboard surfaces cost trends, latency percentiles, and error breakdowns so you can spot issues early.",
                 delay: "stagger-3",
               },
               {
                 icon: Brain,
-                title: "Onboarding accelerator",
-                text: "New teams can explore RAG best practices and learn the system through the chatbot before going live.",
+                title: "Accelerate team onboarding",
+                text: "New teams can explore RAG best practices through the corpus and learn the system through the chatbot before going live.",
                 delay: "stagger-4",
               },
               {
-                icon: Activity,
-                title: "Pipeline health at a glance",
-                text: "The dashboard surfaces cost trends, latency percentiles, and error breakdowns so you can spot issues before they escalate.",
+                icon: Zap,
+                title: "Reduce API costs 60-75%",
+                text: "Three-tier model routing sends simple queries to GPT-4.1-nano, standard queries to mini, and only complex analysis to the full model.",
                 delay: "stagger-5",
               },
               {
                 icon: DollarSign,
-                title: "Zero idle cost",
-                text: "Every service is on a free tier. Runs at $0/month when not in use. No infrastructure burden.",
+                title: "Run at zero idle cost",
+                text: "Every service is on a free tier. The platform runs at $0/month when not in use. No infrastructure burden.",
                 delay: "stagger-6",
               },
             ].map((item) => (
