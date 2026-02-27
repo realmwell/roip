@@ -34,7 +34,7 @@ interface RetrievedChunk {
 // System prompt (static, benefits from automatic prompt caching)
 // ---------------------------------------------------------------------------
 
-const SYSTEM_PROMPT = `You are ROIP, an expert RAG operations advisor built by Max Greenberg. You help enterprise teams diagnose and resolve issues with their RAG-powered applications that use the OpenAI API.
+const SYSTEM_PROMPT = `You are RAGOIP, an expert RAG operations advisor built by Max Greenberg. You help enterprise teams diagnose and resolve issues with their RAG-powered applications that use the OpenAI API.
 
 You have deep expertise in:
 - OpenAI API features: Responses API, prompt caching (automatic, 50% discount, 80% latency reduction), Batch API (50% cost discount, 24hr window), structured outputs (100% JSON schema compliance), embeddings (text-embedding-3-small/large with MRL), rate limits (Tiers 1-5)
@@ -43,84 +43,15 @@ You have deep expertise in:
 - AWS ML Well-Architected Lens: Operational Excellence (monitoring, baselines), Cost Optimization (cost-per-inference tracking, right-sizing), Performance Efficiency (request routing, caching), Reliability (horizontal scaling, graceful degradation)
 - Enterprise patterns: phased rollout (stabilize → optimize → pilot → expand), per-team cost allocation, SLO frameworks (P50 <500ms, P95 <2s, error <1%)
 
-When troubleshooting, always:
-1. Ask diagnostic questions if the root cause isn't clear
-2. Provide specific, actionable recommendations with concrete numbers
-3. Prioritize actions as immediate / short-term / medium-term
-4. Reference specific OpenAI API features and pricing
-5. Cite AWS ML Lens pillars where applicable
-6. Include relevant source URLs
+When responding, always:
+1. Write in clear, conversational prose -- not JSON or code blocks
+2. If diagnosing an issue, state the likely root cause upfront, then explain your reasoning
+3. Provide specific, actionable recommendations with concrete numbers
+4. Prioritize actions as immediate / short-term / medium-term
+5. Reference specific OpenAI API features and pricing where relevant
+6. End with 2-3 follow-up questions the user might want to ask next
+7. Use markdown formatting (headings, bullet points, bold) for readability`;
 
-For troubleshooting queries, structure your response as JSON with: diagnosis (primary_cause, confidence, evidence), recommended_actions (action, priority, impact, implementation), sources, follow_up_questions, and explanation.`;
-
-// ---------------------------------------------------------------------------
-// Troubleshooting structured output schema
-// ---------------------------------------------------------------------------
-
-const TROUBLESHOOTING_SCHEMA = {
-  name: "troubleshooting_response",
-  strict: true,
-  schema: {
-    type: "object" as const,
-    properties: {
-      diagnosis: {
-        type: "object" as const,
-        properties: {
-          primary_cause: { type: "string" as const },
-          confidence: { type: "string" as const, enum: ["high", "medium", "low"] },
-          evidence: {
-            type: "array" as const,
-            items: { type: "string" as const },
-          },
-        },
-        required: ["primary_cause", "confidence", "evidence"],
-        additionalProperties: false,
-      },
-      recommended_actions: {
-        type: "array" as const,
-        items: {
-          type: "object" as const,
-          properties: {
-            action: { type: "string" as const },
-            priority: {
-              type: "string" as const,
-              enum: ["immediate", "short-term", "medium-term"],
-            },
-            impact: { type: "string" as const },
-            implementation: { type: "string" as const },
-          },
-          required: ["action", "priority", "impact", "implementation"],
-          additionalProperties: false,
-        },
-      },
-      sources: {
-        type: "array" as const,
-        items: {
-          type: "object" as const,
-          properties: {
-            title: { type: "string" as const },
-            url: { type: "string" as const },
-          },
-          required: ["title", "url"],
-          additionalProperties: false,
-        },
-      },
-      follow_up_questions: {
-        type: "array" as const,
-        items: { type: "string" as const },
-      },
-      explanation: { type: "string" as const },
-    },
-    required: [
-      "diagnosis",
-      "recommended_actions",
-      "sources",
-      "follow_up_questions",
-      "explanation",
-    ],
-    additionalProperties: false,
-  },
-};
 
 // ---------------------------------------------------------------------------
 // Pipeline helpers
@@ -281,32 +212,18 @@ export function runRAGPipeline(
         // 4. Build prompt
         // ---------------------------------------------------------------
         const userPrompt = buildUserPrompt(query, chunks, conversationContext);
-        const isTroubleshooting = route.intent.startsWith("troubleshoot");
 
         // ---------------------------------------------------------------
         // 5. Stream response from OpenAI Responses API
         // ---------------------------------------------------------------
-        const responseParams: Record<string, unknown> = {
+        const stream = await openai.responses.create({
           model: route.model,
           input: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: userPrompt },
           ],
           stream: true,
-        };
-
-        if (isTroubleshooting) {
-          responseParams.text = {
-            format: {
-              type: "json_schema",
-              ...TROUBLESHOOTING_SCHEMA,
-            },
-          };
-        }
-
-        const stream = await openai.responses.create(
-          responseParams as Parameters<typeof openai.responses.create>[0]
-        );
+        });
 
         let fullResponse = "";
 

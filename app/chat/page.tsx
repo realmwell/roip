@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowLeft, Clock, PanelLeftClose, PanelLeftOpen, Plus } from "lucide-react";
 import ChatInterface from "@/components/chat/ChatInterface";
 
@@ -15,8 +16,24 @@ interface ConversationStub {
 }
 
 export default function ChatPage() {
+  return (
+    <Suspense>
+      <ChatPageInner />
+    </Suspense>
+  );
+}
+
+function ChatPageInner() {
+  const searchParams = useSearchParams();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [conversations] = useState<ConversationStub[]>([]);
+  const [initialQuery, setInitialQuery] = useState<string | null>(null);
+
+  // Read ?q= param on mount
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q) setInitialQuery(q);
+  }, [searchParams]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-bg">
@@ -97,7 +114,7 @@ export default function ChatPage() {
             <span className="text-sm">Home</span>
           </a>
           <div className="flex-1" />
-          <h1 className="text-sm font-semibold text-fg">ROIP Chat</h1>
+          <h1 className="text-sm font-semibold text-fg">RAGOIP Chat</h1>
           <div className="flex-1" />
           {/* Spacer for centering */}
           <div className="w-20" />
@@ -105,7 +122,7 @@ export default function ChatPage() {
 
         {/* Chat interface */}
         <div className="flex-1 min-h-0">
-          <ChatInterface />
+          <ChatInterface initialQuery={initialQuery} />
         </div>
       </main>
     </div>

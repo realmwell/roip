@@ -291,12 +291,12 @@ export default function DashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">
-            Enterprise RAG Pipeline Health
+            Enterprise RAG Pipeline Health Dashboard
           </h1>
           <p className="text-sm text-muted-fg mt-1 max-w-2xl">
-            Upload your pipeline telemetry logs (NDJSON format) and ROIP generates a standardized
-            health review with cost, error, and latency analysis. The same views apply to any
-            dataset that follows the OpenAI distributed trace schema.
+            Upload your pipeline telemetry logs (NDJSON format) and RAGOIP generates a standardized
+            health review with cost trends, latency percentiles, error breakdowns, and route distribution.
+            Track how your RAG pipeline performs over time and spot issues before they affect users.
           </p>
         </div>
 

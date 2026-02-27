@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ToggleLeft, ToggleRight, TrendingDown, Clock } from "lucide-react";
+import Link from "next/link";
+import { ToggleLeft, ToggleRight, TrendingDown, Clock, MessageSquare } from "lucide-react";
 import type { ScenarioProjection } from "@/lib/assessment-engine";
 
 interface ScenarioCardProps {
@@ -83,6 +83,21 @@ export default function ScenarioCard({
               </li>
             ))}
           </ul>
+
+          {/* Ask about this */}
+          <Link
+            href={`/chat?q=${encodeURIComponent(
+              `Tell me more about the "${scenario.name}" optimization scenario. ` +
+              `It projects ${(scenario.savingsPct * 100).toFixed(0)}% cost savings ($${scenario.savingsAbsolute.toFixed(2)} saved) ` +
+              `${scenario.latencyImprovementPct > 0 ? `and ${(scenario.latencyImprovementPct * 100).toFixed(0)}% latency improvement ` : ""}` +
+              `with these assumptions: ${scenario.assumptions.join("; ")}. ` +
+              `How would I implement this, and what are the risks?`
+            )}`}
+            className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 text-xs font-medium text-teal bg-teal/10 rounded-lg hover:bg-teal/20 transition-colors"
+          >
+            <MessageSquare className="h-3 w-3" />
+            Ask about this
+          </Link>
         </div>
       )}
     </div>

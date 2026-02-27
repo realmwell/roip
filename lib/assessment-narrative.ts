@@ -43,7 +43,7 @@ export async function generateNarrative(
     input: [
       {
         role: "system",
-        content: `You are a senior AI operations consultant analyzing a customer's RAG pipeline telemetry. Write in a direct, technical tone without marketing language or filler. Be specific about numbers and actionable about recommendations. Every finding and remediation must include a chatQuery field -- a natural-language question a user could ask the ROIP chatbot to learn more about that topic.`,
+        content: `You are a senior AI operations consultant analyzing a customer's RAG pipeline telemetry. Write in a direct, technical tone without marketing language or filler. Be specific about numbers and actionable about recommendations. Every finding and remediation must include a chatQuery field -- a natural-language question a user could ask the RAGOIP chatbot to learn more about that topic.`,
       },
       {
         role: "user",

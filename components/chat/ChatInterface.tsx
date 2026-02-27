@@ -9,7 +9,11 @@ import MessageBubble, { type Message } from "./MessageBubble";
 // Component
 // ---------------------------------------------------------------------------
 
-export default function ChatInterface() {
+interface ChatInterfaceProps {
+  initialQuery?: string | null;
+}
+
+export default function ChatInterface({ initialQuery }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
@@ -27,8 +31,8 @@ export default function ChatInterface() {
         textareaRef.current?.focus();
       }
     };
-    window.addEventListener("roip:set-input", handler);
-    return () => window.removeEventListener("roip:set-input", handler);
+    window.addEventListener("ragoip:set-input", handler);
+    return () => window.removeEventListener("ragoip:set-input", handler);
   }, []);
 
   // Auto-scroll to bottom on new messages
@@ -48,9 +52,10 @@ export default function ChatInterface() {
   // Submit handler
   // -------------------------------------------------------------------
 
-  const handleSubmit = useCallback(async () => {
-    const trimmed = input.trim();
-    if (!trimmed || isStreaming) return;
+  const submitQuery = useCallback(async (query: string) => {
+    if (!query.trim() || isStreaming) return;
+
+    const trimmed = query.trim();
 
     // Generate conversation ID on first message
     const cid = conversationId ?? nanoid();
@@ -135,7 +140,20 @@ export default function ChatInterface() {
     } finally {
       setIsStreaming(false);
     }
-  }, [input, isStreaming, conversationId]);
+  }, [isStreaming, conversationId]);
+
+  const handleSubmit = useCallback(() => {
+    submitQuery(input);
+  }, [input, submitQuery]);
+
+  // Auto-submit initial query from URL param
+  const initialQuerySubmitted = useRef(false);
+  useEffect(() => {
+    if (initialQuery && !initialQuerySubmitted.current && messages.length === 0) {
+      initialQuerySubmitted.current = true;
+      submitQuery(initialQuery);
+    }
+  }, [initialQuery, submitQuery, messages.length]);
 
   // -------------------------------------------------------------------
   // Follow-up chip handler
@@ -234,7 +252,7 @@ export default function ChatInterface() {
           )}
         </div>
         <p className="text-center text-[10px] text-muted-fg mt-2">
-          ROIP uses RAG with OpenAI models. Responses may not always be accurate.
+          RAGOIP uses RAG with OpenAI models. Responses may not always be accurate.
         </p>
       </div>
     </div>
@@ -292,7 +310,7 @@ function ExampleCard({ label, query }: { label: string; query: string }) {
       type="button"
       onClick={() => {
         // Find the textarea and set its value via a custom event
-        const event = new CustomEvent("roip:set-input", { detail: query });
+        const event = new CustomEvent("ragoip:set-input", { detail: query });
         window.dispatchEvent(event);
       }}
       className="text-left p-3 rounded-xl border border-surface-border bg-surface hover:bg-muted/50 transition-colors group cursor-pointer"

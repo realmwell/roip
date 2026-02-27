@@ -17,9 +17,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ROIP — RAG Operations Intelligence Platform",
+  title: "RAGOIP — RAG Operations Intelligence Platform",
   description:
-    "Enterprise RAG troubleshooting, evaluation, and optimization. Built with OpenAI Responses API, Pinecone, and Upstash Redis.",
+    "Enterprise RAG pipeline health monitoring, assessment, and optimization. Built with OpenAI Responses API, Pinecone, and Upstash Redis.",
 };
 
 export default function RootLayout({

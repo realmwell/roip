@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   ClipboardCheck,
   Loader2,
@@ -22,12 +22,57 @@ import type { NarrativeReport } from "@/lib/assessment-narrative";
 type Phase = "idle" | "analyzing" | "complete" | "error";
 type ViewMode = "executive" | "technical";
 
+const STORAGE_KEY = "ragoip-assessment";
+
+function loadPersistedState(): {
+  phase: Phase;
+  report: AssessmentReport | null;
+  narrative: NarrativeReport | null;
+} | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed.phase === "complete" && parsed.report && parsed.narrative) {
+      return parsed;
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
 export default function AssessmentPage() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [viewMode, setViewMode] = useState<ViewMode>("executive");
   const [report, setReport] = useState<AssessmentReport | null>(null);
   const [narrative, setNarrative] = useState<NarrativeReport | null>(null);
   const [error, setError] = useState<string>("");
+
+  // Restore persisted state on mount
+  useEffect(() => {
+    const saved = loadPersistedState();
+    if (saved) {
+      setPhase(saved.phase);
+      setReport(saved.report);
+      setNarrative(saved.narrative);
+    }
+  }, []);
+
+  // Persist state when assessment completes
+  useEffect(() => {
+    if (phase === "complete" && report && narrative) {
+      try {
+        sessionStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ phase, report, narrative })
+        );
+      } catch {
+        // storage full or unavailable
+      }
+    }
+  }, [phase, report, narrative]);
 
   const runAssessment = useCallback(
     async (body: Record<string, unknown>) => {
@@ -74,6 +119,11 @@ export default function AssessmentPage() {
     setReport(null);
     setNarrative(null);
     setError("");
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
   }, []);
 
   return (

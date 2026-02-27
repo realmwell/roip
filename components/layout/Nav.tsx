@@ -42,7 +42,7 @@ export default function Nav() {
             href="/"
             className="flex items-center gap-2 font-bold text-lg tracking-tight shrink-0"
           >
-            <span className="text-teal">ROIP</span>
+            <span className="text-teal">RAGOIP</span>
           </Link>
 
           {/* Desktop links */}

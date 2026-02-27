@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   MessageSquare,
   Database,
-  FlaskConical,
+  ClipboardCheck,
   BarChart3,
   ArrowRight,
   Zap,
@@ -10,7 +10,7 @@ import {
   Layers,
   Search,
   Brain,
-  GitCompareArrows,
+  Activity,
 } from "lucide-react";
 
 /* -------------------------------------------------------------------------- */
@@ -50,8 +50,8 @@ function DataFlowDiagram() {
       dotColor: "bg-blue",
     },
     {
-      label: "Structured Output",
-      detail: "Diagnosis + actions + sources",
+      label: "Streaming Response",
+      detail: "Conversational answer + sources",
       color: "border-teal",
       dotColor: "bg-teal",
     },
@@ -264,47 +264,56 @@ export default function LandingPage() {
       </section>
 
       {/* ================================================================== */}
-      {/*  What ROIP Does                                                      */}
+      {/*  What RAGOIP Does                                                     */}
       {/* ================================================================== */}
       <section className="py-16 sm:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 animate-fade-in-up">
             <h2 className="text-2xl sm:text-3xl font-bold text-fg">
-              Three tools. One platform.
+              Four capabilities. One platform.
             </h2>
             <p className="mt-3 text-sm text-muted-fg max-w-xl mx-auto">
-              ROIP bundles a troubleshooting chatbot, a searchable knowledge corpus,
-              and an automated evaluation harness into a single deployed application.
+              RAGOIP brings together a real-time health dashboard, a best-practice knowledge corpus,
+              a RAG troubleshooting chatbot, and an automated pipeline assessment tool.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <FeatureCard
-              icon={MessageSquare}
-              title="RAG Troubleshooting Chatbot"
-              description="Powered exclusively by OpenAI models, this assistant diagnoses latency, error rate, and cost issues in enterprise RAG deployments. Uses query routing and structured diagnosis outputs."
-              href="/chat"
-              linkLabel="Open chatbot"
-              accentColor="bg-teal"
+              icon={BarChart3}
+              title="Health Dashboard"
+              description="Real-time insights into your RAG pipeline's cost trends, latency percentiles, error rates, and route distribution drawn from production telemetry."
+              href="/dashboard"
+              linkLabel="View dashboard"
+              accentColor="bg-amber"
               delay="stagger-1"
             />
             <FeatureCard
               icon={Database}
               title="Knowledge Corpus"
-              description="A curated, searchable collection of 35+ documents covering OpenAI platform docs, AWS ML best practices, RAG architecture patterns, and troubleshooting decision trees."
+              description="A curated, searchable collection of 35+ documents covering OpenAI platform docs, AWS ML best practices, RAG architecture patterns, and troubleshooting guides."
               href="/corpus"
               linkLabel="Browse corpus"
               accentColor="bg-blue"
               delay="stagger-2"
             />
             <FeatureCard
-              icon={FlaskConical}
-              title="Evaluation Harness"
-              description="Automated quality, cost, and latency benchmarking with A/B comparison of optimization strategies across 55 predefined test queries."
-              href="/eval"
-              linkLabel="Run evaluation"
-              accentColor="bg-green"
+              icon={MessageSquare}
+              title="RAG Chatbot"
+              description="An AI assistant that helps you troubleshoot latency, cost, and error issues in your RAG pipeline. Powered by query routing, semantic caching, and OpenAI models."
+              href="/chat"
+              linkLabel="Open chatbot"
+              accentColor="bg-teal"
               delay="stagger-3"
+            />
+            <FeatureCard
+              icon={ClipboardCheck}
+              title="Pipeline Assessment"
+              description="Upload your telemetry logs and get a full health analysis with KPI checks, root cause findings, a prioritized remediation plan, and cost optimization scenarios."
+              href="/assessment"
+              linkLabel="Run assessment"
+              accentColor="bg-green"
+              delay="stagger-4"
             />
           </div>
         </div>
@@ -410,7 +419,7 @@ export default function LandingPage() {
                 { icon: "🔎", name: "Pinecone", desc: "Vector store (512d)" },
                 { icon: "📚", name: "Corpus", desc: "35+ markdown docs" },
                 { icon: "📊", name: "Metrics Store", desc: "Usage + latency tracking" },
-                { icon: "🗂️", name: "Eval Sets", desc: "55 predefined queries" },
+                { icon: "🗂️", name: "Assessment", desc: "KPI & scenario engine" },
               ]}
             />
           </div>
@@ -443,9 +452,9 @@ export default function LandingPage() {
                 delay: "stagger-2",
               },
               {
-                icon: BarChart3,
+                icon: ClipboardCheck,
                 title: "Quantified optimization",
-                text: "Run the evaluation harness to see exactly how much each optimization lever saves in cost and latency.",
+                text: "Run the pipeline assessment to see exactly how much each optimization lever saves in cost and latency.",
                 delay: "stagger-3",
               },
               {
@@ -455,9 +464,9 @@ export default function LandingPage() {
                 delay: "stagger-4",
               },
               {
-                icon: GitCompareArrows,
-                title: "A/B testing built in",
-                text: "Compare routing strategies, chunking configs, and retrieval parameters side by side with real metrics.",
+                icon: Activity,
+                title: "Pipeline health at a glance",
+                text: "The dashboard surfaces cost trends, latency percentiles, and error breakdowns so you can spot issues before they escalate.",
                 delay: "stagger-5",
               },
               {
@@ -543,8 +552,8 @@ export default function LandingPage() {
             See it in action
           </h2>
           <p className="text-white/70 text-sm max-w-lg mx-auto mb-8">
-            The chatbot, corpus browser, and evaluation harness are all live.
-            Ask a question, search the knowledge base, or run an eval.
+            The dashboard, chatbot, corpus browser, and pipeline assessment are all live.
+            Explore your pipeline health, ask a question, or run an assessment.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link
@@ -566,7 +575,7 @@ export default function LandingPage() {
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-lg text-sm font-medium border border-white/20 transition-colors"
             >
               <Layers className="h-4 w-4" />
-              About ROIP
+              About RAGOIP
             </Link>
           </div>
         </div>
@@ -577,7 +586,7 @@ export default function LandingPage() {
       {/* ================================================================== */}
       <footer className="bg-navy-dark text-white/50 text-xs py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
-          <span>ROIP by Max Greenberg. OpenAI ASE Take-Home, February 2026.</span>
+          <span>RAGOIP by Max Greenberg. OpenAI ASE Take-Home, February 2026.</span>
           <div className="flex gap-4">
             <Link href="/about" className="hover:text-white/80 transition-colors">
               About

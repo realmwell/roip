@@ -3,7 +3,8 @@ import {
   ArrowRight,
   MessageSquare,
   Database,
-  FlaskConical,
+  ClipboardCheck,
+  BarChart3,
   CheckCircle2,
   ExternalLink,
 } from "lucide-react";
@@ -103,15 +104,15 @@ export default function AboutPage() {
       <section className="hero-gradient text-white overflow-hidden">
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
           <span className="inline-block bg-white/15 px-3 py-1 rounded-full text-xs font-medium tracking-wider uppercase mb-5">
-            About ROIP
+            About RAGOIP
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight max-w-2xl">
-            Why I Built a Working Platform Instead of Writing a Document
+            A RAG Pipeline Health Platform You Can Actually Use
           </h1>
           <p className="mt-4 text-base text-white/80 max-w-2xl leading-relaxed">
-            The OpenAI ASE take-home asks for a 2-3 page brief and a 5-minute
-            video. ROIP goes further: it ships a deployed application that
-            demonstrates every technique the brief would describe.
+            RAGOIP diagnoses production RAG pipelines, identifies cost and
+            latency bottlenecks, and generates actionable remediation plans
+            backed by real telemetry data.
           </p>
         </div>
       </section>
@@ -148,23 +149,23 @@ export default function AboutPage() {
         </section>
 
         {/* ================================================================ */}
-        {/*  What ROIP Does                                                    */}
+        {/*  What RAGOIP Does                                                   */}
         {/* ================================================================ */}
         <section>
           <h2 className="text-xl font-bold text-fg mb-6">
-            What ROIP Does
+            What RAGOIP Does
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
-                icon: MessageSquare,
-                title: "Troubleshooting Chatbot",
-                color: "bg-teal",
+                icon: BarChart3,
+                title: "Health Dashboard",
+                color: "bg-amber",
                 items: [
-                  "Symptom-based diagnosis with structured output",
-                  "Query routing: nano for FAQs, mini for analysis, full for complex",
-                  "Semantic caching for repeated queries (<50ms)",
-                  "Sources and follow-up questions in every response",
+                  "Cost trends, latency percentiles, error breakdowns",
+                  "Upload telemetry logs in NDJSON format",
+                  "Past analyses archived for comparison",
+                  "Real production data visualization with Recharts",
                 ],
               },
               {
@@ -179,14 +180,25 @@ export default function AboutPage() {
                 ],
               },
               {
-                icon: FlaskConical,
-                title: "Evaluation Harness",
+                icon: MessageSquare,
+                title: "RAG Chatbot",
+                color: "bg-teal",
+                items: [
+                  "Conversational diagnosis of RAG pipeline issues",
+                  "Query routing: nano for FAQs, mini for analysis, full for complex",
+                  "Semantic caching for repeated queries (<50ms)",
+                  "Markdown responses with follow-up suggestions",
+                ],
+              },
+              {
+                icon: ClipboardCheck,
+                title: "Pipeline Assessment",
                 color: "bg-green",
                 items: [
-                  "55 predefined test queries across 4 categories",
-                  "RAGAS-style scoring with GPT-4.1-nano as judge",
-                  "A/B comparison of optimization strategies",
-                  "Cost, latency, and quality metrics per query",
+                  "KPI checks against enterprise SLO targets",
+                  "GPT-powered narrative with root cause findings",
+                  "Prioritized remediation plan with effort estimates",
+                  "Four cost optimization scenario projections",
                 ],
               },
             ].map((card) => (
@@ -216,16 +228,16 @@ export default function AboutPage() {
         {/* ================================================================ */}
         <section>
           <h2 className="text-xl font-bold text-fg mb-6">
-            How to Use ROIP
+            How to Use RAGOIP
           </h2>
           <div className="space-y-4">
             {[
               {
                 step: "1",
-                title: "Ask the chatbot a troubleshooting question",
-                desc: 'Go to the Chat page and type something like "Why is my RAG latency increasing?" or "How can I reduce my API costs?" The chatbot will route your query, retrieve relevant context, and return a structured diagnosis with recommended actions.',
-                href: "/chat",
-                linkLabel: "Open chatbot",
+                title: "Check the health dashboard",
+                desc: "Upload your pipeline telemetry logs (NDJSON format) and the dashboard will visualize cost trends, latency percentiles, error rates, and route distribution. Past analyses are archived for comparison.",
+                href: "/dashboard",
+                linkLabel: "View dashboard",
               },
               {
                 step: "2",
@@ -236,17 +248,17 @@ export default function AboutPage() {
               },
               {
                 step: "3",
-                title: "Run an evaluation",
-                desc: "Select a query set (latency troubleshooting, cost optimization, scaling readiness, or general FAQ), configure the model and routing strategy, and run an automated evaluation. Compare results side by side.",
-                href: "/eval",
-                linkLabel: "Run evaluation",
+                title: "Ask the chatbot a troubleshooting question",
+                desc: 'Go to the Chat page and type something like "Why is my RAG latency increasing?" or "How can I reduce my API costs?" The chatbot will route your query, retrieve relevant context, and return a conversational diagnosis with recommended actions.',
+                href: "/chat",
+                linkLabel: "Open chatbot",
               },
               {
                 step: "4",
-                title: "Check the dashboard",
-                desc: "View aggregate metrics from your usage: total queries, average latency, cache hit rate, and API cost. The dashboard pulls real-time data from the metrics store.",
-                href: "/dashboard",
-                linkLabel: "View dashboard",
+                title: "Run a pipeline assessment",
+                desc: "Upload your telemetry logs or load sample data. The assessment engine computes KPIs, identifies root causes, generates a prioritized remediation plan, and models four cost optimization scenarios.",
+                href: "/assessment",
+                linkLabel: "Run assessment",
               },
             ].map((item) => (
               <div
@@ -336,9 +348,9 @@ export default function AboutPage() {
             />
             <TimelineItem
               phase="Phase 2 -- Weeks 3-4"
-              title="Query Routing & Evaluation Harness"
-              description="Add GPT-4.1-nano query router. Implement semantic caching with ElastiCache Redis. Build evaluation harness with RAGAS-based quality scoring. Add cost and latency tracking dashboards. Run first A/B test."
-              tags={["GPT-4.1-nano", "ElastiCache", "Step Functions", "RAGAS"]}
+              title="Query Routing & Pipeline Assessment"
+              description="Add GPT-4.1-nano query router. Implement semantic caching with ElastiCache Redis. Build pipeline assessment engine with KPI checks and scenario modeling. Add cost and latency tracking dashboards."
+              tags={["GPT-4.1-nano", "ElastiCache", "Assessment Engine", "KPIs"]}
             />
             <TimelineItem
               phase="Phase 3 -- Weeks 5-6"
@@ -349,7 +361,7 @@ export default function AboutPage() {
             <TimelineItem
               phase="Phase 4 -- Weeks 7-8"
               title="New Team Onboarding & Continuous Eval"
-              description="Onboard first new team using ROIP as the onboarding accelerator. Run evaluation harness against production traffic. Set up automated SLO monitoring with CloudWatch alarms. Build per-team cost allocation dashboards."
+              description="Onboard first new team using RAGOIP as the onboarding accelerator. Run pipeline assessment against production traffic. Set up automated SLO monitoring with CloudWatch alarms. Build per-team cost allocation dashboards."
               tags={["CloudWatch", "SLO Monitoring", "Per-team Dashboards"]}
             />
           </div>
@@ -392,8 +404,8 @@ export default function AboutPage() {
                     "Query routing with nano classifier cuts 60-75% of cost",
                     "Semantic caching with cosine similarity threshold of 0.95",
                     "512-dimensional embeddings (MRL-compressed, half the cost of 1536)",
-                    "Structured outputs with JSON schema for diagnosis format",
-                    "RAGAS-style evaluation with nano as judge model",
+                    "Conversational markdown responses with streaming",
+                    "GPT-4.1-mini narrative generation for assessment reports",
                     "Zero idle cost: every service on free tier",
                     "Companion .docx and .pptx generated programmatically",
                   ].map((item) => (
@@ -465,7 +477,7 @@ export default function AboutPage() {
         <section className="rounded-xl bg-navy p-8 sm:p-10 text-center text-white">
           <h2 className="text-xl font-bold mb-3">Ready to explore?</h2>
           <p className="text-sm text-white/70 mb-6 max-w-md mx-auto">
-            The chatbot, corpus browser, evaluation harness, and dashboard are
+            The dashboard, chatbot, corpus browser, and pipeline assessment are
             all live. Pick a starting point.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
@@ -484,11 +496,11 @@ export default function AboutPage() {
               Browse Corpus
             </Link>
             <Link
-              href="/eval"
+              href="/assessment"
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-5 py-2.5 rounded-lg text-sm font-medium border border-white/20 transition-colors"
             >
-              <FlaskConical className="h-4 w-4" />
-              Run Evaluation
+              <ClipboardCheck className="h-4 w-4" />
+              Run Assessment
             </Link>
           </div>
         </section>
@@ -497,7 +509,7 @@ export default function AboutPage() {
       {/* Footer */}
       <footer className="bg-navy-dark text-white/50 text-xs py-6 mt-12">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
-          <span>ROIP by Max Greenberg. OpenAI ASE Take-Home, February 2026.</span>
+          <span>RAGOIP by Max Greenberg. OpenAI ASE Take-Home, February 2026.</span>
           <div className="flex gap-4">
             <Link href="/" className="hover:text-white/80 transition-colors">
               Home
